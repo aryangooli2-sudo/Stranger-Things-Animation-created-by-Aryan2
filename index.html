@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stranger Things Intro</title>
+  <!-- Removed direct CSS link, using in-browser compilation -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.11.1/sass.sync.min.js"></script>
+  <style>
+    /* Critical CSS to prevent FOUC while SCSS compiles */
+    .viewport,
+    .letterbox,
+    .intro-text {
+      display: none;
+    }
+  </style>
+  <script>
+    // Fetch and compile SCSS
+    console.log('Starting SCSS fetch...');
+    fetch('style.scss')
+      .then(response => {
+        console.log('Fetch response:', response.status);
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(scss => {
+        console.log('SCSS fetched, length:', scss.length);
+        console.log('Starting Sass compile...');
+        Sass.compile(scss, function (result) {
+          console.log('Sass compile result status:', result.status);
+          if (result.status === 0) {
+            console.log('Sass compilation successful, injecting style...');
+            const style = document.createElement('style');
+            style.textContent = result.text;
+            document.head.appendChild(style);
+            console.log('Style injected.');
+          } else {
+            console.error('Sass compilation failed:', result.formatted);
+            console.error('Full result:', result);
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching or compiling SCSS:', error);
+      });
+
+    // Fallback: If intro text is still hidden after 3s, force show it.
+    setTimeout(() => {
+      const introText = document.querySelector('.intro-text');
+      if (introText && getComputedStyle(introText).display === 'none') {
+        console.warn('Fallback: Force showing intro text');
+        // Only force show the intro parts, NOT the viewport/scene
+        const style = document.createElement('style');
+        style.textContent = '.intro-text, .intro-title { display: block !important; } .intro { opacity: 1 !important; visibility: visible !important; }';
+        document.head.appendChild(style);
+      }
+    }, 3000);
+  </script>
+</head>
+
+<body>
+
+  <div class="intro">
+    <h1 class="intro-title">Backbenchers Things</h1>
+
+    <p class="intro-text intro-text--can">
+      The following demo is performance intensive, and will play audio. If you
+      experience any issues, try sizing down your browser and refreshing.
+      <br />
+      <button class="intro-text-play" data-play>&#9654;</button>
+      <br><br>
+      <button class="intro-text-button" data-mode="mobile" style="width: auto; padding: 0 10px;">Mobile Mode</button>
+      <button class="intro-text-button" data-mode="pc" style="width: auto; padding: 0 10px;">PC Mode</button>
+    </p>
+
+    <p class="intro-text intro-text--shouldnt">
+      Unfortunately this demo uses many features only found in the latest
+      version of Google Chrome. You can still run this, but it may not look
+      as intended. Please try running it in Chrome for the best experience.
+      <br />
+      <a class="intro-text-button" href="https://www.google.com/chrome/browser/">
+        Download Chrome
+      </a>
+      <button class="intro-text-button" data-play>
+        Play Anyway
+      </button>
+      <br><br>
+      <button class="intro-text-button" data-mode="mobile" style="width: auto; padding: 0 10px;">Mobile Mode</button>
+      <button class="intro-text-button" data-mode="pc" style="width: auto; padding: 0 10px;">PC Mode</button>
+    </p>
+
+    <p class="intro-text intro-text--cant">
+      Unfortunately your browser doesn't support this demo. Please download
+      Google Chrome, and try running it again.
+      <br />
+      <a class="intro-text-button" href="https://www.google.com/chrome/browser/">
+        Download Chrome
+      </a>
+    </p>
+
+    <noscript>
+      The following demo requires javascript to run. Please enable it and
+      refresh the browser.
+    </noscript>
+  </div>
+
+  <div class="viewport">
+    <div class="scene">
+      <div class="title title--full">
+        <div class="title-word">
+          <span class="title-word-letter" data-letter="S1">
+            <span class="title-word-letter-large">B</span>
+            <div class="titlebar titlebar--left"></div>
+          </span>
+          <span class="title-word-letter" data-letter="T1">A</span>
+          <span class="title-word-letter" data-letter="R1">C</span>
+          <span class="title-word-letter" data-letter="A">K</span>
+          <span class="title-word-letter" data-letter="N1">B</span>
+          <span class="title-word-letter" data-letter="G1">E</span>
+          <span class="title-word-letter" data-letter="E">N</span>
+          <span class="title-word-letter" data-letter="R1">C</span>
+          <span class="title-word-letter" data-letter="T1">H</span>
+          <span class="title-word-letter" data-letter="A">E</span>
+          <span class="title-word-letter" data-letter="R2">R</span>
+          <span class="title-word-letter" data-letter="S2">
+            <span class="title-word-letter-large">S</span>
+            <div class="titlebar titlebar--right"></div>
+          </span>
+          <div class="titlebar titlebar--top"></div>
+        </div>
+
+        <div></div>
+
+        <div class="title-word title-word--second">
+          <span class="title-word-letter" data-letter="T2">T</span>
+          <span class="title-word-letter" data-letter="H">H</span>
+          <span class="title-word-letter" data-letter="I">I</span>
+          <span class="title-word-letter" data-letter="N2">N</span>
+          <span class="title-word-letter" data-letter="G2">G</span>
+          <span class="title-word-letter" data-letter="S2">S</span>
+        </div>
+      </div>
+
+      <div class="title title--scene title--scene0"></div>
+      <div class="title title--scene title--scene1">
+        <div class="title-word">
+          <div class="title-word-letter" data-letter="A">A</div>
+        </div>
+      </div>
+      <div class="title title--scene title--scene2">
+        <div class="title-word">
+          <div class="title-word-letter" data-letter="N">N</div>
+        </div>
+      </div>
+      <div class="title title--scene title--scene3">
+        <div class="title-word">
+          <div class="title-word-letter" data-letter="R">R</div>
+          <div class="title-word-letter" data-letter="I">I</div>
+        </div>
+      </div>
+      <div class="title title--scene title--scene4">
+        <div class="title-word">
+          <div class="title-word-letter" data-letter="S">S</div>
+          <div class="title-word-letter" data-letter="G">G</div>
+        </div>
+      </div>
+      <div class="title title--scene title--scene5">
+        <div class="title-word">
+          <div class="title-word-letter" data-letter="R">R</div>
+          <div class="title-word-letter" data-letter="S">S</div>
+        </div>
+      </div>
+      <div class="title title--scene title--scene6">
+        <div class="title-word">
+          <div class="title-word-letter" data-letter="I">I</div>
+          <div class="title-word-letter" data-letter="A">A</div>
+          <div class="title-word-letter" data-letter="T">T</div>
+          <div class="title-word-letter" data-letter="H">H</div>
+          <div class="title-word-letter" data-letter="N">N</div>
+          <div class="title-word-letter" data-letter="G">G</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="credits">
+      <div class="credits-group">
+        <div class="credits-group-credit">
+          An Aryangooli Original Series
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-credit" data-text="Abhijit Bhasme">
+          Abhijit Bhasme
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-credit">
+          Ishan Nagar
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-credit" data-text="">
+
+        </div>
+        <div class="credits-group-credit" data-text="Sarvadnya Naladkar">
+          Sarvadnya Naladkar
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-credit" data-text="Ayushi Nimo">
+          Ayushi Nimo
+        </div>
+        <div class="credits-group-credit" data-text="Arjun ">
+          Arjun
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-credit" data-text="Rohan Chaudhuri">
+          Rohan Chaudhuri
+        </div>
+        <div class="credits-group-credit" data-text="Apurv Roy">
+          Apurv Roy
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-credit" data-text="Atharv Hinge">
+          Atharv Hinge
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-sub" data-text="And">
+          And
+        </div>
+        <div class="credits-group-credit" data-text="Rushikesh Mane">
+          Rushikesh Mane
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-sub" data-text="Co-Executive Producer">
+          Co-Executive Producer
+        </div>
+        <div class="credits-group-credit" data-text="Karen Thomas">
+          Karen Thomas
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-sub" data-text="Executive Producer">
+          Executive Producer
+        </div>
+        <div class="credits-group-credit" data-text="Kranti mam">
+          Kranti mam
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-sub" data-text="Executive Producers">
+          Executive Producers
+        </div>
+        <div class="credits-group-credit" data-text="Sachin gooli">
+          Sachin gooli
+        </div>
+        <div class="credits-group-credit" data-text="Jyoti Gooli">
+          Jyoti Gooli
+        </div>
+        <div class="credits-group-credit" data-text="Advay Gooli">
+          Advay Gooli
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-sub" data-text="Executive Producers">
+          Executive Producers
+        </div>
+        <div class="credits-group-credit" data-text="dev.Aryan gooli & dev.Sarvadnya Naladkar">
+          dev.Aryan gooli & dev.Sarvadnya Naladkar
+        </div>
+        <div class="credits-group-credit" data-text="Actor Arnav Gooli">
+          Actor Arnav Gooli
+        </div>
+      </div>
+
+      <div class="credits-group">
+        <div class="credits-group-sub" data-text="Executive Producers">
+          Executive Producers
+        </div>
+        <div class="credits-group-credit" data-text="The Duffer Brothers">
+          dev.Aryan gooli
+        </div>
+      </div>
+
+      <div class="credits-final">
+        <div class="credits-group-sub" data-text="Created By">
+          Created By
+        </div>
+        <div class="credits-group-credit" data-text="Aryangooli">
+          Aryangooli
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+  <div class="letterbox">
+    <div class="letterbox-cover letterbox-cover--top"></div>
+    <div class="letterbox-cover letterbox-cover--left"></div>
+    <div class="letterbox-cover letterbox-cover--right"></div>
+    <div class="letterbox-cover letterbox-cover--bottom"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
